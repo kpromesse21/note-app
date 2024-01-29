@@ -23,18 +23,30 @@ function createNoteEl(id, content) {
     })
     return element;
 }
-
+/**
+ * @description deleteNote supprime une note juste en possedant son id
+ * @param {*} id l'identifiant de la note
+ * @param {*} element contenue de la note
+ */
 function deleteNote(id, element) {
     const notes = getNotes().filter((note) => note.id != id)
     saveNote(notes);
     appEl.removeChild(element);
 }
+/**
+ * 
+ * @param {*} id 
+ * @param {*} content 
+ */
 function updateNote(id, content) {
     const notes = getNotes();
     const target = notes.filter((note) => note.id == id)[0];
     target.content = content;
     saveNote(notes);
 }
+/**
+ * @description est une fonction qui permet d'ajouter une note à l'objet notes en localstorage
+ */
 function addNote() {
     const notes = getNotes();
     const noteObj = {
@@ -47,9 +59,18 @@ function addNote() {
     saveNote(notes)
 }
 
+/**
+ *  @description getNote est une fonction qui permet de recuperer les notes sous json de puis le navigateur
+ * @returns  la valeur soquet en memoire de toutes les notes
+ */
 function getNotes() {
     return JSON.parse(localStorage.getItem("note-app") || "[]");
 }
+
+/**
+ * @param {*} notes 
+ *  @description saveNote nous sert à l'enregistrement des notes dans le navigateur 
+ */
 function saveNote(notes) {
     localStorage.setItem("note-app", JSON.stringify(notes))
 }
